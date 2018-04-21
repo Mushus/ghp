@@ -1,1 +1,3 @@
 .vagrant
+dist/*
+!dist/README.md

@@ -4,6 +4,9 @@
   "description": "GitHub Pages",
   "main": "index.js",
   "scripts": {
+    "dev": "webpack-dev-server",
+    "build": "webpack --config webpack.config.js",
+    "fmt": "prettier --write *.json *.js *.ts *.scss",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "repository": {
@@ -15,5 +18,21 @@
   "bugs": {
     "url": "https://github.com/Mushus/ghp/issues"
   },
-  "homepage": "https://github.com/Mushus/ghp#readme"
+  "homepage": "https://github.com/Mushus/ghp#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "css-loader": "^0.28.11",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^1.1.11",
+    "glob": "^7.1.2",
+    "node-sass": "^4.8.3",
+    "prettier": "^1.12.1",
+    "sass-loader": "^7.0.1",
+    "style-loader": "^0.21.0",
+    "ts-loader": "^4.2.0",
+    "typescript": "^2.8.3",
+    "webpack": "^4.6.0",
+    "webpack-cli": "^2.0.15",
+    "webpack-dev-server": "^3.1.3"
+  }
 }

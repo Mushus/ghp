@@ -8,6 +8,9 @@ cp deploy_key ~/.ssh/
 chmod 600 ~/.ssh/deploy_key
 
 cd -
+
+npm run build
+
 cd dist
 
 git config user.email "deploy@travis-ci.org"
