@@ -8,4 +8,3 @@ deploy:
     branch: master
   local-dir: dist
   repo: Mushus.github.io
-  target-branch: master
