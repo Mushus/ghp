@@ -1,4 +1,6 @@
 language: node_js
+node_js:
+  - "9"
 script:
   - '[ "$TRAVIS_BRANCH" == master ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && bash ./.travis/deploy.sh'
 cache:
