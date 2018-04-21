@@ -7,3 +7,4 @@ deploy:
   on:
     branch: master
   local-dir: dist
+  repo: https://github.com/Mushus/Mushus.github.io.git
