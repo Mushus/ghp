@@ -56,7 +56,7 @@ module.exports = {
   },
   resolve: {
     extensions: [
-      '.ts'
+      '.ts', '.js'
     ]
   },
   plugins: [
