@@ -61,14 +61,14 @@ Vagrant.configure("2") do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
+    apt-get install -y build-essential curl
     curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
     apt-get install -y nodejs
-    apt-get install -y build-essential
   SHELL
 
   config.vm.provision "shell", run: "always", inline: <<-SHELL
     mkdir -p /vagrant/node_modules /home/vagrant/node_modules
-    chown -R vagrant:vagrant /vagrant/node_modules
+    chown -R vagrant:vagrant /home/vagrant/node_modules /vagrant/node_modules
     mount --bind /home/vagrant/node_modules /vagrant/node_modules
   SHELL
 end
