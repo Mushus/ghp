@@ -6,6 +6,7 @@ module.exports = Object.assign({
   mode: 'development',
   devServer: {
     host: '0.0.0.0',
+    port: 8080
   },
   watchOptions: {
     poll: true
