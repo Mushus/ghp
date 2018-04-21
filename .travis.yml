@@ -1,10 +1,6 @@
 language: node_js
-deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN
-  keep-history: false
-  on:
-    branch: master
-  local-dir: dist
-  repo: Mushus.github.io
+script:
+  - '[ "$TRAVIS_BRANCH" == master ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && bash ./deploy.sh'
+cache:
+  directories:
+    - node_modules
