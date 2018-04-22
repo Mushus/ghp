@@ -1,39 +1,29 @@
 @import "../../node_modules/normalize.css/normalize.css";
-@import url('https://fonts.googleapis.com/css?family=Didact+Gothic');
+@import url("https://fonts.googleapis.com/css?family=Didact+Gothic");
 
-$bg-color: #17A1E6;
+$bg-color: #7accd8;
 
 $break-point: 480px;
 
-$m-panel-scale: 0.8;
+// grid
 $panel-font-size: 1rem;
-$m-panel-font-size: $panel-font-size * $m-panel-scale;
 $glid-min-size: 100px;
-$m-glid-min-size: $glid-min-size * $m-panel-scale;
 $glid-gap-size: 12px;
+
+// mobile
+$m-panel-scale: 0.8;
+$m-panel-font-size: $panel-font-size * $m-panel-scale;
+$m-glid-min-size: $glid-min-size * $m-panel-scale;
 $m-glid-gap-size: $glid-gap-size * $m-panel-scale;
 
 * {
-  font-family: 'Didact Gothic', sans-serif;
+  font-family: "Didact Gothic", sans-serif;
 }
 a {
   text-decoration: none;
 }
 
-.site-header--content {
-  padding: 30px;
-  height: 300px;
-  max-height: calc(100vw * 5 / 8);
-  .header--title {
-    margin: 0;
-  }
-  .header--description {
-    margin: 0;
-  }
-  *:not(:last-child) {
-    margin-bottom: 16px;
-  }
-}
+@import "header.scss";
 
 body.page--top {
   background-color: $bg-color;
@@ -57,7 +47,7 @@ body.page--top {
 
     .panel--item {
       background-color: #fff;
-      box-shadow: 2px 2px 8px 0  rgba(0,0,0,0.1);
+      box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, 0.1);
 
       /* 色 */
       &.color-darkgray {
@@ -75,7 +65,7 @@ body.page--top {
       position: relative;
       &:before {
         display: block;
-        content: '';
+        content: "";
         padding-top: 100%;
       }
       .item-content {

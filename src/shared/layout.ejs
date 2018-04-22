@@ -10,6 +10,12 @@
   <header class="site-header--content">
     <h1 class="header--title">Wynd</h1>
     <p class="header--description">Experimental Contents</p>
+    <svg class="header--cloud" preserveAspectRatio="none" viewBox="0 0 100 100">
+      <line y1="20" y2="20" stroke="#fff" stroke-linecap="round" style="stroke-width: 50px; vector-effect: non-scaling-stroke;">
+        <animate begin="0s" attributeName="x1" from="-20" to="100" dur="20s" repeatCount="indefinite" />
+        <animate begin="0s" attributeName="x2" from="0" to="120" dur="20s" repeatCount="indefinite" />
+      </line>
+    </svg>
   </header>
   <% main(buf) %>
   <script src="js/main.js"></script>
