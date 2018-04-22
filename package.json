@@ -2,7 +2,7 @@
   "name": "ghp",
   "version": "1.0.0",
   "description": "GitHub Pages",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
     "dev": "webpack-dev-server --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.js",
@@ -24,9 +24,11 @@
   },
   "devDependencies": {
     "css-loader": "^0.28.11",
+    "ejs-compiled-loader": "^1.1.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.11",
     "glob": "^7.1.2",
+    "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.8.3",
     "prettier": "^1.12.1",
     "sass-loader": "^7.0.1",

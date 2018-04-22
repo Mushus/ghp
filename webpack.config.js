@@ -1,16 +1,14 @@
 'use strict';
 
 const path = require('path');
+const glob = require('glob')
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const Glob = require('glob')
-
-path.join(__dirname, 'src/index.html')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'production',
   entry: [
-    ... Glob.sync("src/**/*.html").map(v => path.join(__dirname, v)),
     path.join(__dirname, 'src/css/base.scss'),
     path.join(__dirname, 'src/js/index.ts'),
   ],
@@ -45,11 +43,17 @@ module.exports = {
       {
         test: /\.html$/,
         use: {
-        loader: 'file-loader',
+          loader: 'file-loader',
           options: {
             regExp: /\/src\/(.*)$/,
             name: '[1]'
           }
+        }
+      },
+      {
+        test: /\.ejs$/,
+        use: {
+          loader: 'ejs-compiled-loader',
         }
       }
     ]
@@ -60,6 +64,14 @@ module.exports = {
     ]
   },
   plugins: [
+    ... glob.sync("src/**/*.ejs").
+      filter(v => !v.startsWith('src/shared/')).
+      map(v => new HtmlWebpackPlugin({
+        inject: false,
+        minify: true,
+        filename : v.replace(/^src\/(.*)\.ejs$/, '$1.html'),
+        template : path.join(__dirname, v),
+      })),
     new ExtractTextPlugin('css/[name].css')
   ],
 };
