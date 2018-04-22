@@ -1,18 +1,18 @@
-'use strict';
-const webpack = require('webpack');
-const confg = require('./webpack.config');
+"use strict";
+const webpack = require("webpack");
+const confg = require("./webpack.config");
 
-module.exports = Object.assign({
-  mode: 'development',
-  devServer: {
-    host: '0.0.0.0',
-    port: 8080
+module.exports = Object.assign(
+  {
+    mode: "development",
+    devServer: {
+      host: "0.0.0.0",
+      port: 8080
+    },
+    watchOptions: {
+      poll: true
+    },
+    plugins: [new webpack.IgnorePlugin(/node_modules/), ...confg.plugins]
   },
-  watchOptions: {
-    poll: true
-  },
-  plugins: [
-    new webpack.IgnorePlugin(/node_modules/),
-    ... confg.plugins
-  ]
-}, confg)
+  confg
+);

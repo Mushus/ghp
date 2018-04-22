@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack-dev-server --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.js",
-    "fmt": "prettier --write *.json *.js *.ts *.scss",
+    "fmt": "prettier --write ./**/*.json ./**/*.js ./**/*.ts ./**/*.scss",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "repository": {
