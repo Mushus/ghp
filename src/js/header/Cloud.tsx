@@ -1,11 +1,26 @@
 import * as React from "react";
 
-interface CloudData {
-  y: number;
-  width: number;
-  height: number;
+interface Color {
+  r: number;
+  g: number;
+  b: number;
+}
+
+interface SVGAnimation {
+  from: number;
+  to: number;
   duration: number;
   begin: number;
+}
+
+interface CloudData {
+  color: Color;
+  x: SVGAnimation;
+  y: number;
+  z: number;
+  width: number;
+  height: number;
+  radius: number;
 }
 
 export default class Clouds extends React.Component<any, any> {
@@ -15,80 +30,79 @@ export default class Clouds extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      width: 0,
-      height: 0,
-      clouds: [],
+      clouds: this.generateItems(),
     };
   }
 
-  generateItems(height: number): Array<CloudData> {
+  generateItems(): Array<CloudData> {
     const clouds: Array<CloudData> = [];
-    for (let i: number = 0; i < 30; i++) {
-      const cloudHeight = Math.random() * 100 + 100;
-      const duration: number = Math.random() * 30000 + 10000;
+    for (let i: number = 0; i < 100; i++) {
+      const cloudWidth = Math.random() * 0.2 + 0.1;
+      let cloud: any;
+      let drawHeight: number;
+      do {
+        const z = Math.random();
+        cloud = {
+          color: z * z,
+          z: z * 2 + 0.5,
+          y: Math.random() * Math.random(),
+          width: cloudWidth,
+          height: cloudWidth * (Math.random() * 0.3 + 0.3),
+          speed: 0.00003,
+        };
+        drawHeight = cloud.height / cloud.z
+      } while(cloud.y / cloud.z + drawHeight / 2 > 1);
+
+      const drawWidth = cloud.width / cloud.z;
+      // x:1 = z:1
+      const duration = (cloud.z + cloud.width) / cloud.speed;
       clouds.push({
-        y: Math.random() * Math.random() * (height - cloudHeight / 2),
-        width: Math.random() * 150 + 100,
-        height: cloudHeight,
-        duration,
-        begin: duration * Math.random(),
+        x: {
+          from: 0 - drawWidth,
+          to: 1,
+          duration: duration,
+          begin: duration * Math.random(),
+        },
+        y: cloud.y / cloud.z - drawHeight / 2,
+        z: cloud.z,
+        width: drawWidth,
+        height: drawHeight,
+        color: {
+          r: 162 * cloud.color + 255 * ( 1 - cloud.color ),
+          g: 215 * cloud.color + 255 * ( 1 - cloud.color ),
+          b: 221 * cloud.color + 255 * ( 1 - cloud.color )
+        },
+        radius: Math.min(drawWidth, drawHeight) / 2,
       });
     }
-    return clouds;
-  }
 
-  updateDimensions() {
-    if (this.elem == null) return;
-    const elem = this.elem!;
-    const height = elem.clientHeight;
-    const clouds = this.state.clouds.length > 0 ? this.state.clouds : this.generateItems(height);
-    const state = Object.assign(this.state, {
-      width: elem.clientWidth,
-      height: elem.clientHeight,
-      clouds: clouds,
-    });
-    this.setState(state);
-  }
-q
-  componentDidMount() {
-    this.updateDimensions();
-    window.addEventListener("resize", this.updateDimensions.bind(this));
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.updateDimensions.bind(this));
+    return clouds.sort((a, b) => b.z - a.z);
   }
 
   render() {
     return (
-      <svg className="header--cloud" preserveAspectRatio="none" ref={e => {this.elem = e}}>
+      <svg
+        className="header--cloud"
+        preserveAspectRatio="none"
+        viewBox="0 0 1 1"
+        ref={e => {this.elem = e}}>
         { this.state.clouds.map( v => (
-          <line
-            y1={v.y}
-            y2={v.y}
-            x1="100"
-            x2="100"
-            stroke="#fff"
-            stroke-linecap="round"
-            style={ ({
-              strokeWidth: (v.height / 2) + 'px',
-              vectorEffect: 'non-scaling-stroke'
-            })}>
+          <rect
+            x={v.x.to}
+            y={v.y}
+            width={v.width}
+            height={v.height}
+            rx={v.radius}
+            ry={v.radius}
+            fill={`#${(v.color.r | 0).toString(16)}${(v.color.g | 0).toString(16)}${(v.color.b | 0).toString(16)}`}>
             <animate
-              begin={`-${v.begin | 0}ms`}
-              attributeName="x1"
-              from={-v.width - v.height / 2}
-              to={this.state.width + v.height / 2}
-              dur={`${v.duration | 0}ms`}
+              begin={`-${v.x.begin}ms`}
+              attributeName="x"
+              from={v.x.from}
+              to={v.x.to}
+              dur={`${v.x.duration}ms`}
               repeatCount="indefinite" />
-            <animate
-              begin={`-${v.begin | 0}ms`}
-              attributeName="x2"
-              from={-v.height / 2}
-              to={this.state.width + v.width + v.height / 2}
-              dur={`${v.duration | 0}ms`}
-              repeatCount="indefinite" />
-          </line>
+          </rect>
         ) ) }
       </svg>
     );

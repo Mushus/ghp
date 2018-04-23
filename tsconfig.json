@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "strictNullChecks": true,
-    "noUnusedLocals" : true,
+    "noUnusedLocals": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
     "sourceMap": true,

@@ -3,6 +3,6 @@ import * as ReactDom from "react-dom";
 import Cloud from "./header/Cloud";
 
 ReactDom.render(
-    React.createElement(Cloud),
-    document.getElementById("cloud-header")
+  React.createElement(Cloud),
+  document.getElementById("cloud-header")
 );
