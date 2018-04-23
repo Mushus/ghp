@@ -43,8 +43,8 @@ export default class Clouds extends React.Component<any, any> {
       do {
         const z = Math.random();
         cloud = {
-          color: z * z,
-          z: z * 2 + 0.5,
+          color: (z * 5 | 0) / 5,
+          z: z * 2 + 0.4,
           y: Math.random() * Math.random(),
           width: cloudWidth,
           height: cloudWidth * (Math.random() * 0.3 + 0.3),
