@@ -11,14 +11,14 @@
   *:not(:last-child) {
     margin-bottom: 16px;
   }
+}
 
-  position: relative;
-  .header--cloud {
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vw;
-  }
+#cloud-header {
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  height: auto;
 }

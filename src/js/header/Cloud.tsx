@@ -30,6 +30,8 @@ export default class Clouds extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
+      width: 0,
+      height: 0,
       clouds: this.generateItems(),
     };
   }
@@ -79,32 +81,45 @@ export default class Clouds extends React.Component<any, any> {
     return clouds.sort((a, b) => b.z - a.z);
   }
 
+  componentDidMount() {
+    this.setState(Object.assign(this.state, {
+      width: document.documentElement.scrollWidth,
+      height: document.documentElement.scrollHeight
+    }));
+  }
+
   render() {
     return (
-      <svg
-        className="header--cloud"
-        preserveAspectRatio="none"
-        viewBox="0 0 1 1"
-        ref={e => {this.elem = e}}>
-        { this.state.clouds.map( v => (
-          <rect
-            x={v.x.to}
-            y={v.y}
-            width={v.width}
-            height={v.height}
-            rx={v.radius}
-            ry={v.radius}
-            fill={`#${(v.color.r | 0).toString(16)}${(v.color.g | 0).toString(16)}${(v.color.b | 0).toString(16)}`}>
-            <animate
-              begin={`-${v.x.begin}ms`}
-              attributeName="x"
-              from={v.x.from}
-              to={v.x.to}
-              dur={`${v.x.duration}ms`}
-              repeatCount="indefinite" />
-          </rect>
-        ) ) }
-      </svg>
+      <div
+        style={{
+          width: this.state.width + "px",
+          height: Math.min(this.state.width, this.state.height) + "px"
+        }}>
+        <svg
+          className="header--cloud"
+          preserveAspectRatio="none"
+          viewBox="0 0 1 1"
+          ref={e => {this.elem = e}}>
+          { this.state.clouds.map( v => (
+            <rect
+              x={v.x.to}
+              y={v.y}
+              width={v.width}
+              height={v.height}
+              rx={v.radius}
+              ry={v.radius}
+              fill={`#${(v.color.r | 0).toString(16)}${(v.color.g | 0).toString(16)}${(v.color.b | 0).toString(16)}`}>
+              <animate
+                begin={`-${v.x.begin}ms`}
+                attributeName="x"
+                from={v.x.from}
+                to={v.x.to}
+                dur={`${v.x.duration}ms`}
+                repeatCount="indefinite" />
+            </rect>
+          ) ) }
+        </svg>
+      </div>
     );
   }
 }
