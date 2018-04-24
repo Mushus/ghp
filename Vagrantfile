@@ -66,6 +66,7 @@ Vagrant.configure("2") do |config|
     apt-get install -y build-essential curl git
     curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
     apt-get install -y nodejs
+    sudo npm install yarn
   SHELL
 
   config.vm.provision "shell", run: "always", inline: <<-SHELL

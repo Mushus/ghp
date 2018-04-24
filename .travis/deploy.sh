@@ -9,7 +9,7 @@ chmod 600 ~/.ssh/deploy_key
 
 cd -
 
-npm run build
+yarn build
 
 cd dist
 
