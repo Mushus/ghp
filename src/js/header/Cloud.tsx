@@ -81,11 +81,20 @@ export default class Clouds extends React.Component<any, any> {
     return clouds.sort((a, b) => b.z - a.z);
   }
 
-  componentDidMount() {
+  updateSize() {
     this.setState(Object.assign(this.state, {
       width: document.documentElement.scrollWidth,
       height: document.documentElement.scrollHeight
     }));
+  }
+
+  componentDidMount() {
+    this.updateSize();
+    window.addEventListener("resize", this.updateSize.bind(this));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateSize.bind(this));
   }
 
   render() {
