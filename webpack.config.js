@@ -8,13 +8,14 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: "production",
-  entry: [
-    path.join(__dirname, "src/css/base.scss"),
-    path.join(__dirname, "src/js/index.ts")
-  ],
+  entry: {
+    'css/base': path.join(__dirname, "src/css/base.scss"),
+    'js/base': path.join(__dirname, "src/js/base.ts"),
+    'js/top': path.join(__dirname, "src/js/top.ts")
+  },
   output: {
     path: path.join(__dirname, "/dist/"),
-    filename: "js/[name].js",
+    filename: "[name].js",
     publicPath: "/"
   },
   module: {
@@ -61,6 +62,9 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js"]
   },
+  externals: {
+    'three/build/three.module': 'THREE'
+  },
   plugins: [
     ...glob
       .sync("src/**/*.ejs")
@@ -74,6 +78,6 @@ module.exports = {
             template: path.join(__dirname, v)
           })
       ),
-    new ExtractTextPlugin("css/[name].css")
+    new ExtractTextPlugin("[name].css")
   ]
 };
