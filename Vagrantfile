@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # NOTE: This will enable public access to the opened port
   # config.vm.network "forwarded_port", guest: 80, host: 8080
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
+  config.vm.network "forwarded_port", guest: 3000, host: 3000
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine and only allow access
@@ -66,7 +66,8 @@ Vagrant.configure("2") do |config|
     apt-get install -y build-essential curl git
     curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
     apt-get install -y nodejs
-    sudo npm install yarn
+    npm install yarn -g
+    yarn global add @vue/cli @vue/cli-init
   SHELL
 
   config.vm.provision "shell", run: "always", inline: <<-SHELL

@@ -1,0 +1,14 @@
+$bg-color: #7accd8;
+
+$break-point: 480px;
+
+// grid
+$panel-font-size: 1rem;
+$glid-min-size: 100px;
+$glid-gap-size: 12px;
+
+// mobile
+$m-panel-scale: 0.8;
+$m-panel-font-size: $panel-font-size * $m-panel-scale;
+$m-glid-min-size: $glid-min-size * $m-panel-scale;
+$m-glid-gap-size: $glid-gap-size * $m-panel-scale;
