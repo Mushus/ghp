@@ -9,7 +9,7 @@ chmod 600 ~/.ssh/deploy_key
 
 cd -
 
-yarn build
+yarn generate
 
 cd dist
 
