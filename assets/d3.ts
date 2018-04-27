@@ -22,6 +22,14 @@ export default class {
     this.elem!.appendChild(this.renderer.domElement);
   }
 
+  private updateSize() {
+    const width = this.elem.offsetWidth;
+    const height = this.elem.offsetHeight
+    this.renderer.setSize(width, height);
+    this.camera.aspect = width / height;
+    this.camera.updateProjectionMatrix();
+  }
+
   private createScene() {
     // シーン (空間) を作成
     this.scene = new THREE.Scene();

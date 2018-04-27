@@ -1,4 +1,5 @@
 const parseArgs = require("minimist")
+const webpack = require('webpack')
 const argv = parseArgs(process.argv.slice(2), {
   alias: {
     H: "hostname",
@@ -55,14 +56,10 @@ module.exports = {
   ** Build configuration
   */
   css: ["~/assets/css/main.scss"],
-  build: {
-    vendor: [
-      'three/build/three.module',
-    ],
-  },
+  build: {},
   modules: [
-    "@nuxtjs/axios",
-    "~/modules/typescript.js"
+    '@nuxtjs/axios',
+    '~/modules/typescript.js',
   ],
   axios: {},
   plugins: [
