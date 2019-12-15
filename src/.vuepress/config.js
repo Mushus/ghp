@@ -1,50 +1,84 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const walk = (filepath, relative = '/') => fs
+const walk = (filepath, relative = "/") =>
+  fs
     .readdirSync(filepath)
-    .filter(filename => !filename.startsWith('.'))
+    .filter(filename => !filename.startsWith("."))
     .map(filename => {
-        const myFilepath = path.join(filepath, filename);
+      const myFilepath = path.join(filepath, filename);
+      const extension = path.extname(filename);
+      const basename = path.basename(filename, extension);
+      const isDirectory = fs.statSync(myFilepath).isDirectory();
 
-        if (!fs.existsSync(filepath)) {
-            return null;
+      return {
+        basename,
+        extension,
+        filepath: myFilepath,
+        isDirectory
+      };
+    })
+    .filter(
+      ({ filepath, extension, isDirectory }) =>
+        fs.existsSync(filepath) && (isDirectory || extension == ".md")
+    )
+    .sort((a, b) => {
+      if (a.isDirectory != b.isDirectory) {
+        return a.isDirectory ? 1 : -1;
+      }
+      if (a.basename == "index") {
+        return -1;
+      }
+      if (b.basename == "index") {
+        return 1;
+      }
+      return a.basename - b.basename;
+    })
+    .map(({ filepath, basename, isDirectory }) => {
+      const myRelative =
+        basename === "index"
+          ? path.join(relative, "/")
+          : path.join(relative, basename);
+
+      if (!isDirectory) {
+        return myRelative;
+      }
+
+      const metadataPath = path.join(filepath, "metadata.json");
+      let title = basename;
+      if (fs.existsSync(metadataPath)) {
+        const buf = fs.readFileSync(metadataPath);
+        const metadata = JSON.parse(buf.toString());
+        if (metadata.title) {
+          title = metadata.title;
         }
+      }
 
-        const ext = path.extname(myFilepath);
-        const basename = path.basename(myFilepath, ext);
-        const myRelative = basename === 'index' ? relative : path.join(relative, basename);
-
-        if (!fs.statSync(myFilepath).isDirectory()) {
-            return myRelative;
-        }
-
-        const children = walk(myFilepath, myRelative);
-        if (children.length === 0) {
-            return null;
-        }
-        return { [myRelative]: children };
+      console.log(metadataPath);
+      const children = walk(filepath, myRelative);
+      if (children.length === 0) {
+        return null;
+      }
+      return { title, children };
     })
     .filter(link => link != null);
-
-
-const sidebar = walk('./src');
-console.log(sidebar);
+const sidebar = walk("./src");
+const util = require("util");
+console.log(util.inspect(sidebar, false, null));
 
 module.exports = {
-    locales: {
-        '/': {
-            lang: 'ja',
-            title: 'mushus.github.io',
-            description: 'content',
-        }
-    },
-    themeConfig: {
-        nav: [
-            { text: 'Home', link: '/' },
-            { text: 'About', link: '/about/' },
-            { text: 'Blog', link: 'https://www.nxworld.net/' }
-        ],
-        sidebar
+  locales: {
+    "/": {
+      lang: "ja",
+      title: "mushus.github.io",
+      description: "content"
     }
+  },
+  themeConfig: {
+    nav: [
+      { text: "Home", link: "/" },
+      { text: "About", link: "/about" }
+    ],
+    sidebar
+  }
 };

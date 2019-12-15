@@ -4,7 +4,6 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -12,12 +11,47 @@ jobs:
         node-version: [12.x]
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Build
-      run: |
-        yarn
-        yarn build
+      - uses: actions/checkout@v1
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Get yarn cache
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Build
+        run: |
+          yarn
+          yarn build
+
+      - name: Get yarn cache
+        env:
+          GIT_SSH_COMMAND: ssh -i ~/.ssh/deploy_id_rsa -F /dev/null
+        run: |
+          export COMMIT_SUMMARY=$(git log -1 --pretty='%s')
+          echo $DEPLOY_KEY >> ~/.ssh/deploy_id_rsa
+          chmod 600 ~/.ssh/deploy_id_rsa
+          cd src/.vuepress/dist/
+          git init
+          git config --local user.name "Github Actions"
+          git config --local user.email "noreply@github.com"
+          git remote add origin git@github.com:Mushus/Mushus.github.io.git
+          git fetch
+          git reset --soft origin/master
+          git diff --quiet
+          if [ $? -eq 0 ]; then
+            echo "no update" && exit 9
+          fi
+          git add .
+          git commit -m $COMMIT_SUMMARY
+          git push orign master
