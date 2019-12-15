@@ -34,17 +34,18 @@ jobs:
           yarn
           yarn build
 
-      - name: Get yarn cache
-        env:
-          GIT_SSH_COMMAND: ssh -i ~/.ssh/deploy_id_rsa -F /dev/null
+      - name: Deploy Mushus.github.io
         run: |
           export COMMIT_SUMMARY=$(git log -1 --pretty='%s')
+
           echo $DEPLOY_KEY >> ~/.ssh/deploy_id_rsa
           chmod 600 ~/.ssh/deploy_id_rsa
+
           cd src/.vuepress/dist/
           git init
           git config --local user.name "Github Actions"
           git config --local user.email "noreply@github.com"
+          git config --local core.sshCommand "ssh -i ~/.ssh/deploy_id_rsa -F /dev/null"
           git remote add origin git@github.com:Mushus/Mushus.github.io.git
           git fetch
           git reset --soft origin/master
