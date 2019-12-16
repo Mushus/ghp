@@ -36,12 +36,15 @@ jobs:
 
       - name: Deploy Mushus.github.io
         run: |
+          echo "Get the repository logs"
           export COMMIT_SUMMARY=$(git log -1 --pretty='%s')
           export COMMIT_ID=$(git rev-parse HEAD)
 
+          echo "Put the deploy key"
           echo $DEPLOY_KEY > /home/runner/.ssh/deploykey
           chmod 600 /home/runner/.ssh/deploykey
 
+          echo "Commit changes"
           cd src/.vuepress/dist/
           git init
           git config --local user.name "Github Actions"
@@ -52,7 +55,7 @@ jobs:
           git reset --soft origin/master
           git diff --quiet
           if [ $? -eq 0 ]; then
-            echo "no update" && exit 9
+            echo "not updated" && exit 9
           fi
           git add .
           git commit -m $COMMIT_SUMMARY -m "See Detail: https://github.com/Mushus/ghp/commit/${COMMIT_ID}"
