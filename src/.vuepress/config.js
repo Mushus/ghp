@@ -54,7 +54,6 @@ const walk = (filepath, relative = "/") =>
         }
       }
 
-      console.log(metadataPath);
       const children = walk(filepath, myRelative);
       if (children.length === 0) {
         return null;
@@ -62,9 +61,8 @@ const walk = (filepath, relative = "/") =>
       return { title, children };
     })
     .filter(link => link != null);
+
 const sidebar = walk("./src");
-const util = require("util");
-console.log(util.inspect(sidebar, false, null));
 
 module.exports = {
   locales: {
