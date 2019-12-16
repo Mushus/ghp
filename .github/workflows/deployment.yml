@@ -35,6 +35,8 @@ jobs:
           yarn build
 
       - name: Deploy Mushus.github.io
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
         run: |
           echo "Get the repository logs"
           export COMMIT_SUMMARY=$(git log -1 --pretty='%s')
