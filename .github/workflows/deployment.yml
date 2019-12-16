@@ -55,7 +55,7 @@ jobs:
           git config --local core.sshCommand "ssh -o StrictHostKeyChecking=no -i /home/runner/.ssh/deploykey -F /dev/null"
           git remote add origin git@github.com:Mushus/Mushus.github.io.git
           git fetch
-          ret=0 && git reset --soft refs/remote/origin/master || ret=$?
+          ret=0 && git reset --soft origin/master || ret=$?
           if [ "$ret" -eq "0" ]; then
             ret=0 && git diff --quiet || ret=$?
             if [ "$ret" -eq "0" ]; then
