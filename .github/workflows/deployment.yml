@@ -55,8 +55,12 @@ jobs:
           git config --local core.sshCommand "ssh -o StrictHostKeyChecking=no -i /home/runner/.ssh/deploykey -F /dev/null"
           git remote add origin git@github.com:Mushus/Mushus.github.io.git
           git fetch
-          if git reset --soft refs/remote/origin/master; then
-            if git diff --quiet; then
+          git reset --soft refs/remote/origin/master || :
+          ret=$?
+          if [ "$ret" -eq "0" ]; then
+            git diff --quiet || :
+            ret=$?
+            if [ "$ret" -eq "0" ]; then
               echo "not updated" && exit 1
             fi
           fi
