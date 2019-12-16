@@ -39,14 +39,14 @@ jobs:
           export COMMIT_SUMMARY=$(git log -1 --pretty='%s')
           export COMMIT_ID=$(git rev-parse HEAD)
 
-          echo $DEPLOY_KEY >> ~/.ssh/deploy_id_rsa
-          chmod 600 ~/.ssh/deploy_id_rsa
+          echo $DEPLOY_KEY > /home/runner/.ssh/deploykey
+          chmod 600 /home/runner/.ssh/deploykey
 
           cd src/.vuepress/dist/
           git init
           git config --local user.name "Github Actions"
           git config --local user.email "noreply@github.com"
-          git config --local core.sshCommand "ssh -i ~/.ssh/deploy_id_rsa -F /dev/null"
+          git config --local core.sshCommand "ssh -i /home/runner/.ssh/deploykey -F /dev/null"
           git remote add origin git@github.com:Mushus/Mushus.github.io.git
           git fetch
           git reset --soft origin/master
