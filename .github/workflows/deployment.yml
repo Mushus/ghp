@@ -42,7 +42,7 @@ jobs:
 
           echo "Put the deploy key"
           mkdir -p /home/runner/.ssh/
-          echo $DEPLOY_KEY > /home/runner/.ssh/deploykey
+          echo -e $DEPLOY_KEY > /home/runner/.ssh/deploykey
           chmod 600 /home/runner/.ssh/deploykey
 
           echo "Commit changes"
