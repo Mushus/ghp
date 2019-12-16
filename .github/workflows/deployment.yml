@@ -63,5 +63,5 @@ jobs:
             fi
           fi
           git add .
-          git commit -m $COMMIT_SUMMARY -m "See Detail: https://github.com/Mushus/ghp/commit/${COMMIT_ID}"
+          git commit -m "$COMMIT_SUMMARY" -m "See Detail: https://github.com/Mushus/ghp/commit/${COMMIT_ID}"
           git push -u origin master
