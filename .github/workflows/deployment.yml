@@ -41,6 +41,7 @@ jobs:
           export COMMIT_ID=$(git rev-parse HEAD)
 
           echo "Put the deploy key"
+          mkdir -p /home/runner/.ssh/
           echo $DEPLOY_KEY > /home/runner/.ssh/deploykey
           chmod 600 /home/runner/.ssh/deploykey
 
