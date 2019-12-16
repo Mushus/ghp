@@ -37,6 +37,7 @@ jobs:
       - name: Deploy Mushus.github.io
         run: |
           export COMMIT_SUMMARY=$(git log -1 --pretty='%s')
+          export COMMIT_ID=$(git rev-parse HEAD)
 
           echo $DEPLOY_KEY >> ~/.ssh/deploy_id_rsa
           chmod 600 ~/.ssh/deploy_id_rsa
@@ -54,5 +55,5 @@ jobs:
             echo "no update" && exit 9
           fi
           git add .
-          git commit -m $COMMIT_SUMMARY
+          git commit -m $COMMIT_SUMMARY -m "See Detail: https://github.com/Mushus/ghp/commit/${COMMIT_ID}"
           git push orign master
