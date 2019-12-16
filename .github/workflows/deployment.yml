@@ -44,7 +44,7 @@ jobs:
 
           echo "Put the deploy key"
           mkdir -p /home/runner/.ssh/
-          echo -e "$DEPLOY_KEY" > /home/runner/.ssh/deploykey
+          echo -e $DEPLOY_KEY > /home/runner/.ssh/deploykey
           chmod 600 /home/runner/.ssh/deploykey
 
           echo "Commit changes"
@@ -55,7 +55,7 @@ jobs:
           git config --local core.sshCommand "ssh -o StrictHostKeyChecking=no -i /home/runner/.ssh/deploykey -F /dev/null"
           git remote add origin git@github.com:Mushus/Mushus.github.io.git
           git fetch
-          git reset --soft origin/master
+          git reset --soft refs/remote/origin/master
           git diff --quiet
           if [ $? -eq 0 ]; then
             echo "not updated" && exit 9
