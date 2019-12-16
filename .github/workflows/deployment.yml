@@ -57,7 +57,7 @@ jobs:
           git fetch
           if git reset --soft refs/remote/origin/master; then
             if git diff --quiet; then
-              echo "not updated" && exit 9
+              echo "not updated" && exit 1
             fi
           fi
           git add .
