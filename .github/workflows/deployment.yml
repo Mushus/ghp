@@ -61,7 +61,7 @@ jobs:
             git diff --quiet || :
             ret=$?
             if [ "$ret" -eq "0" ]; then
-              echo "not updated" && exit 1
+              echo "not updated" && exit 0
             fi
           fi
           git add .
