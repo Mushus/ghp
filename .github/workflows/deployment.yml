@@ -39,8 +39,8 @@ jobs:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
         run: |
           echo "Get the repository logs"
-          export COMMIT_SUMMARY=$(git log -1 --pretty='%s')
-          export COMMIT_ID=$(git rev-parse HEAD)
+          COMMIT_SUMMARY=$(git log -1 --pretty='%s')
+          COMMIT_ID=$(git rev-parse HEAD)
 
           echo "Put the deploy key"
           mkdir -p /home/runner/.ssh/
@@ -55,10 +55,10 @@ jobs:
           git config --local core.sshCommand "ssh -o StrictHostKeyChecking=no -i /home/runner/.ssh/deploykey -F /dev/null"
           git remote add origin git@github.com:Mushus/Mushus.github.io.git
           git fetch
-          git reset --soft refs/remote/origin/master
-          git diff --quiet
-          if [ $? -eq 0 ]; then
-            echo "not updated" && exit 9
+          if git reset --soft refs/remote/origin/master; then
+            if git diff --quiet; then
+              echo "not updated" && exit 9
+            fi
           fi
           git add .
           git commit -m $COMMIT_SUMMARY -m "See Detail: https://github.com/Mushus/ghp/commit/${COMMIT_ID}"
