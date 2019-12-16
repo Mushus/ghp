@@ -57,6 +57,7 @@ jobs:
           git fetch
           ret=0 && git reset --soft origin/master || ret=$?
           if [ "$ret" -eq "0" ]; then
+            git add -N .
             ret=0 && git diff --quiet || ret=$?
             if [ "$ret" -eq "0" ]; then
               echo "not updated" && exit 0
