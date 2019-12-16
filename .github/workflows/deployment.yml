@@ -50,7 +50,7 @@ jobs:
           git init
           git config --local user.name "Github Actions"
           git config --local user.email "noreply@github.com"
-          git config --local core.sshCommand "ssh -i /home/runner/.ssh/deploykey -F /dev/null"
+          git config --local core.sshCommand "ssh -o StrictHostKeyChecking=no -i /home/runner/.ssh/deploykey -F /dev/null"
           git remote add origin git@github.com:Mushus/Mushus.github.io.git
           git fetch
           git reset --soft origin/master
