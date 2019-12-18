@@ -78,5 +78,17 @@ module.exports = {
       { text: "About", link: "/about" }
     ],
     sidebar
-  }
+  },
+  plugins: [
+    [
+      '@vuepress/last-updated',
+      {
+        transformer: (timestamp, lang) => {
+          const moment = require('moment')
+          moment.locale(lang)
+          return moment(timestamp).fromNow()
+        }
+      }
+    ]
+  ]
 };
