@@ -6,13 +6,13 @@ title: Chrome いろいろ
 
 ## タブを自動でサスペンドして CPU とメモリの使用率を抑える
 
-**方法1**
+**方法 1**
 
 [The Great Suspender](https://chrome.google.com/webstore/detail/the-great-suspender/klbibkeccnjlkjkiokjodocebajanakg?hl=ja) を使う。
 
 タブのアイコンと中身にすぐにアクセスできないため、若干不便になる
 
-**方法2**
+**方法 2**
 
 v79 に出現した `Tab Freeze` 機能をつかう。
 
@@ -20,4 +20,6 @@ v79 に出現した `Tab Freeze` 機能をつかう。
 1. `Tab Freeze` を有効化
 1. ブラウザ再起動
 
-いくらかバージョンが上がったら自動で有効化されそう
+いくらかバージョンが上がったら自動で有効化されそう。
+
+今後スタンダードになっていきそうな「方法2」を採用して `The Great Suspender` は投げ捨てた。

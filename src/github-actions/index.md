@@ -6,6 +6,10 @@ title: Github Actions あれこれ
 
 ## 全般
 
+### GitHub Actions テンプレート
+
+[ただチェックアウトするだけ](https://github.com/Mushus/ghp/blob/master/.github/workflows/deployment.yml)
+
 ### 環境変数 `GITHUB_TOKEN` が使えない
 
 `secrets.GITHUB_TOKEN` はデフォルトで設定されているが、 環境変数として `GITHUB_TOKEN` は存在していない。
@@ -42,7 +46,7 @@ AWS 公式の [aws-actions](https://github.com/aws-actions) には S3 へのア�
 
 なので非公式の [jakejarvis/s3-sync-action](https://github.com/jakejarvis/s3-sync-action) を使用する。
 
-以下に node のプロジェクトをビルド後 S3 にデプロイする方法を示す。
+[以下](https://gist.github.com/Mushus/e3f10d65eea2daa92f372f0d5d2c5387)に node のプロジェクトをビルド後 S3 にデプロイする方法を示す。
 
 ```yaml
 name: Deploy S3
