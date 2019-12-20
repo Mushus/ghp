@@ -1,4 +1,6 @@
 ---
-title: hello world!
+title: mushus.github.io
 ---
-# hello vuepress
+# mushus.github.io
+
+My technical notes and my diary.

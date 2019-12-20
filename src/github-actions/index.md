@@ -10,6 +10,38 @@ title: Github Actions あれこれ
 
 [ただチェックアウトするだけ](https://github.com/Mushus/ghp/blob/master/.github/workflows/deployment.yml)
 
+### 資料
+
+- [awesome actions](https://github.com/sdras/awesome-actions) 何ができるかとか
+
+### アクションの定義方法
+
+**方法 1**
+
+ガッツリしたアクション -> [Mushus/golangci-lint-actions](https://github.com/Mushus/golangci-lint-action) みたいに適当なリポジトリ作ってルートに配置すると良さそう
+
+DockerHub にデプロイするまでやるといいのでは？
+
+**方法 2**
+
+細々したアクション -> [Mushus/github-actions](https://github.com/Mushus/github-actions) みたいなリポジトリを作ってフォルダごとに管理すると良さそう。
+
+### アクションの実装言語
+
+**JavaScript / TypeScript**
+
+言語は固定されるが、指定したステップで実行する以外にジョブの最後に片付け的な処理が挟める ( 若干違うかもしれないが golang の `defer` 的なやつ )
+
+現在は [ドキュメント](https://help.github.com/ja/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions) に載っていないが [公式が使っている](https://github.com/actions/cache/blob/master/action.yml#L20)
+
+**Docker**
+
+言語は自由に使えるが、JS 系の便利さはない
+
+### GitHub Actions 上で Docker はつかえるか
+
+使える。ただしローカルボリューム ( `docker run -v "hoge:/hoge"` とかで作られるやつ ? ) は使えない
+
 ### 環境変数 `GITHUB_TOKEN` が使えない
 
 `secrets.GITHUB_TOKEN` はデフォルトで設定されているが、 環境変数として `GITHUB_TOKEN` は存在していない。
@@ -50,7 +82,7 @@ AWS 公式の [aws-actions](https://github.com/aws-actions) には S3 へのア�
 
 ```yaml
 name: Deploy S3
-on: [ push ]
+on: [push]
 jobs:
   deploy:
     name: Deploy S3
@@ -59,7 +91,7 @@ jobs:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: "12.x"
       - run: |
           yarn
           yarn build
@@ -70,8 +102,8 @@ jobs:
           AWS_S3_BUCKET: ${{ secrets.BUCKET_NAME }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: 'us-west-1'
-          SOURCE_DIR: 'dist'
+          AWS_REGION: "us-west-1"
+          SOURCE_DIR: "dist"
 ```
 
 公式のものが正式にリリースされたらそちらに乗り換えたいところ。

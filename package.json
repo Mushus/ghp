@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "main": "index.js",
   "repository": "git@github.com:Mushus/ghp.git",
-  "author": "Mushus <mushus.wynd@gmail.com>",
+  "author": "Mushus",
   "license": "MIT",
   "scripts": {
     "dev": "vuepress dev src",
