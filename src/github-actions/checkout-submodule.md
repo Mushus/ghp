@@ -70,7 +70,7 @@ githubのリポジトリのトップから「 Settings > Deploy Keys > Add Deplo
 
 ここで作成した Action を使用します。
 
-```.github/workflows/ci.yml
+```yaml
 name: CI
 on: [push]
 jobs:
@@ -89,9 +89,9 @@ jobs:
 
 ```yaml
 - uses: Mushus/checkout-submodule@master
-with:
-  submodulePath: [YOUR_SUBMODULE_PATH]
-  identifierFile: ${{ secret.[YOUR_SECRET_PATH] }}
+  with:
+    submodulePath: [YOUR_SUBMODULE_PATH]
+    identifierFile: ${{ secret.[YOUR_SECRET_PATH] }}
 ```
 
 ## おわりに
