@@ -1,6 +1,6 @@
 ---
-title: mushus.github.io
+title: Top
 ---
-# mushus.github.io
+# Top
 
 My technical notes and my diary.
