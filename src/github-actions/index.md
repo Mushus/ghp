@@ -70,11 +70,16 @@ echo -e "DEPLOY_KEY"
 
 ## AWS
 
+### PR をビルドして確認 URL を生成する
+
+[gist](https://gist.github.com/Mushus/14f67f78d4e46192e3c013ae2ef89bd8)
+
+Nodeの静的サイト向け。
+レビューのために成果物を確認したいとき用。
+
 ### S3 にアップロードしたい
 
-2019-12-18 現在、 Github Actions 公式の [actions/aws](https://github.com/actions/aws) は Deprecated になってしまっている。
-
-AWS 公式の [aws-actions](https://github.com/aws-actions) には S3 へのアップロードアクションが存在せず、残念ながら公式のサポートがなくなってしまっている。
+AWS 公式の [aws-actions](https://github.com/aws-actions) には S3 へのアップロードアクションが存在せず、残念ながら公式のサポート現状ありません。
 
 なので非公式の [jakejarvis/s3-sync-action](https://github.com/jakejarvis/s3-sync-action) を使用する。
 
