@@ -1,0 +1,9 @@
+# Webpack
+
+## config ファイルにも TypeScript を使う
+
+以下を追加する
+
+```
+yarn add -D ts-node @types/webpack
+```
